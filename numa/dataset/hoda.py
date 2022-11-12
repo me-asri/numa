@@ -47,14 +47,16 @@ def _reshape_image(image: np.ndarray, binary: bool = False, size: int = 28) -> n
     height, width = image.shape[:2]
     aspect_ratio = width / height
 
-    if aspect_ratio > 1:  # horizontal image
+    if aspect_ratio > 1:
+        # Horizontal image
         new_width = size
         new_height = np.round(new_width / aspect_ratio).astype(int)
         pad_vertical = (size - new_height) / 2
         pad_top, pad_bottom = np.floor(pad_vertical).astype(
             int), np.ceil(pad_vertical).astype(int)
         pad_left, pad_right = 0, 0
-    elif aspect_ratio < 1:  # vertical image
+    elif aspect_ratio < 1:
+        # Vertical image
         new_height = size
         new_width = np.round(new_height * aspect_ratio).astype(int)
         pad_horizontal = (size - new_width) / 2
@@ -62,6 +64,7 @@ def _reshape_image(image: np.ndarray, binary: bool = False, size: int = 28) -> n
             int), np.ceil(pad_horizontal).astype(int)
         pad_top, pad_bottom = 0, 0
     else:
+        # Square image
         new_height, new_width = size, size
         pad_left, pad_right, pad_top, pad_bottom = 0, 0, 0, 0
 
